@@ -1,5 +1,5 @@
 const defaultGrid = 3;
-divsketch = document.querySelector(".sketch");
+const divsketch = document.querySelector(".sketch");
 
 let color = [0, 0, 0];
 let clicked = false;
@@ -37,17 +37,14 @@ function createRGB(random){
 
 function createDivs(numberGrid){
     
-    let nAuto = "";
-    divsketch.style.gridTemplateColumns = "";
+    divsketch.style.gridTemplateColumns = `repeat(${numberGrid}, auto)`;
 
-    for (let i = 0; i < numberGrid; i++){
-        nAuto += "auto ";
-        for (let n = 0; n < numberGrid; n++){
-            divsketch.innerHTML += '<div class="grid-item"/>';
-        }
+    for (let i = 0; i < numberGrid * numberGrid; i++){
+        let gridItem = document.createElement("div");
+        gridItem.classList.add("grid-item");
+        divsketch.appendChild(gridItem);
+        //divsketch.innerHTML += '<div class="grid-item"/>';
     }
-
-    divsketch.style.gridTemplateColumns = nAuto;
 
 }
 
