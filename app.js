@@ -58,12 +58,11 @@ function reset(){
 
     if (Number.isNaN(nGrid) || Number.isSafeInteger(nGrid) != true || nGrid <= 0){
 
-        console.log("No valid number introduced.");
+        alert("No valid number introduced.");
         createDivs(defaultGrid);
     }
     else{
 
-        console.log('numero');
         createDivs(nGrid);
 
     }
