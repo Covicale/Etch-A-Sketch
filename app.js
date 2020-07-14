@@ -1,31 +1,38 @@
 const defaultGrid = 3;
-
 divsketch = document.querySelector(".sketch");
 
 let color = [0, 0, 0];
-
 let clicked = false;
+let randomized = false;
 
-window.addEventListener("mousedown", (e) => {
+window.addEventListener("click", (e) =>{
 
-    clicked = true;
-    window.onmousemove = (e) => {
-        if (e.target.className == "grid-item") {
-            e.target.style.background = createRGB(color[0], color[1], color[2]);
+    if (e.target.className == "grid-item") {
+        clicked = !clicked;
+        if (clicked){
+            window.onmousemove = (e) => {
+                if (e.target.className == "grid-item" && clicked) {
+                    e.target.style.background = createRGB(randomized);
+                }
+            }
         }
-    }    
+    }
+    
 })
 
-window.addEventListener("mouseup", () =>{
-    window.onmousemove = null;
-});
+function createRGB(random){
 
-window.addEventListener("drag", () =>{
-    window.onmousemove = null;
-});
+    if (randomized){
 
-function createRGB(r, g, b){
-    return "rgb("+r+","+g+","+b+")";
+        r = Math.floor(Math.random() * 255) + 1;
+        g = Math.floor(Math.random() * 255) + 1; 
+        b = Math.floor(Math.random() * 255) + 1; 
+        return "rgb("+r+","+g+","+b+")";
+
+    }else{
+        return "rgb(0, 0, 0)";
+    }
+
 }
 
 function createDivs(numberGrid){
@@ -47,14 +54,31 @@ function createDivs(numberGrid){
 function reset(){
 
     divsketch.innerHTML = "";
-    try{
+    nGrid = Number(prompt("How you want the grid? (nxn)"));
 
-        nGrid = prompt("How you want the grid? (nxn)");
+    if (Number.isNaN(nGrid) || Number.isSafeInteger(nGrid) != true || nGrid <= 0){
+
+        console.log("No valid number introduced.");
+        createDivs(defaultGrid);
+    }
+    else{
+
+        console.log('numero');
         createDivs(nGrid);
 
-    }catch(err){
-        console.log(err.message);
-        createDivs(defaultGrid);
+    }
+
+}
+
+function randomizer(obj){
+
+    randomized = !randomized;
+    if (randomized){
+        obj.style.background = "#4CAF50";
+        obj.style.color = "black";
+    }else{
+        obj.style.background = "white"
+        obj.style.color = "black";
     }
 
 }
